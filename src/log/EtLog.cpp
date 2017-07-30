@@ -1,5 +1,5 @@
-#include "log.h"
+#include "EtLog.h"
 
-CLog::CLog() {
+CETLog::CETLog() {
     std::cout << "lll" <<std::endl;
 }
