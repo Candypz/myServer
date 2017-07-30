@@ -1,5 +1,5 @@
 #include <iostream>
-#include "log/log.h"
+#include "log/EtLog.h"
 
 int main() {
     std::cout << "111" << std::endl;
