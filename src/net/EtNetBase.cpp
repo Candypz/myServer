@@ -1,3 +1,4 @@
+#include <arpa/inet.h>
 #include "EtNetBase.h"
 #include "EtLog.h"
 
@@ -10,7 +11,7 @@ CEtNetBase::CEtNetBase() {
 }
 
 CEtNetBase::~CEtNetBase() {
-    
+
 }
 
 void read_cb(struct bufferevent *bev, void *arg) {
@@ -20,7 +21,8 @@ void read_cb(struct bufferevent *bev, void *arg) {
 
     while (_n = bufferevent_read(bev, _line, MAX_LINE), _n > 0) {
        _line[_n] = '\0';
-       printf("fd=%u, read line: %s\n", _fd, _line);
+
+       LOG_INFO("fd = {0}, read line size: {1}", _fd, _n);
 
        bufferevent_write(bev, _line, _n);
     }
@@ -59,6 +61,8 @@ void do_Accept(evutil_socket_t listener, short event, void *arg) {
         return;
     }
 
+    LOG_INFO("client init addr:{0} port:{1}", inet_ntoa(_sin.sin_addr), _sin.sin_port);
+
     struct bufferevent *_bev = bufferevent_socket_new(_base, _fd, BEV_OPT_CLOSE_ON_FREE);
     bufferevent_setcb(_bev, read_cb, NULL, error_cb, arg);
     bufferevent_enable(_bev, EV_READ|EV_WRITE|EV_PERSIST);
@@ -93,8 +97,8 @@ int CEtNetBase::run() {
     struct event *_listen_event;
     _listen_event = event_new(_base, _listener, EV_READ|EV_PERSIST, do_Accept, (void*)_base);
     event_add(_listen_event, NULL);
+    LOG_CRIT("server init");
     event_base_dispatch(_base);
 
-    LOG_CRIT("socket init");
     return 0;
 }

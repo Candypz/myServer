@@ -20,6 +20,7 @@ int main() {
     _log->createLogFile();
 
     std::shared_ptr<CEtNetBase> _net(new CEtNetBase);
+
     _net->run();
 
     // struct event evTime;
