@@ -34,7 +34,8 @@ void read_cb(struct bufferevent *bev, void *arg) {
 
        LOG_DEBUG("fd = {0}, read line size: {1}", _fd, _n);
 
-       bufferevent_write(bev, _line, _n);
+       CEtClientMag::decode(_fd, _line, _n);
+       //bufferevent_write(bev, _line, _n);
     }
 }
 
@@ -78,6 +79,7 @@ void do_Accept(evutil_socket_t listener, short event, void *arg) {
     bufferevent_setcb(_bev, read_cb, NULL, error_cb, arg);
     bufferevent_enable(_bev, EV_READ|EV_WRITE|EV_PERSIST);
     std::shared_ptr<CEtClientBase> _client(new CEtClientBase(_fd, _bev));
+    _client->listenHeartbeat();
     CEtClientMag::addClient(_fd, _client);
 }
 
