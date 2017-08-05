@@ -1,6 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <assert.h>
+#include <functional>
 #include <arpa/inet.h>
-#include "EtNetBase.h"
+
+#include <event2/event.h>
+#include <event2/bufferevent.h>
+
 #include "EtLog.h"
+#include "EtNetBase.h"
+#include "EtClientMag.h"
 
 #define LISTEN_POINT 28199
 #define LISTEN_BACKLOG 32
@@ -43,6 +53,7 @@ void error_cb(struct bufferevent *bev, short event, void *arg) {
     else if (event & BEV_EVENT_ERROR) {
         LOG_ERR("some other error");
     }
+    CEtClientMag::removeClient(fd);
     bufferevent_free(bev);
 }
 
@@ -66,6 +77,8 @@ void do_Accept(evutil_socket_t listener, short event, void *arg) {
     struct bufferevent *_bev = bufferevent_socket_new(_base, _fd, BEV_OPT_CLOSE_ON_FREE);
     bufferevent_setcb(_bev, read_cb, NULL, error_cb, arg);
     bufferevent_enable(_bev, EV_READ|EV_WRITE|EV_PERSIST);
+    std::shared_ptr<CEtClientBase> _client(new CEtClientBase(_fd, _bev));
+    CEtClientMag::addClient(_fd, _client);
 }
 
 int CEtNetBase::run() {

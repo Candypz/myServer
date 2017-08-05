@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <assert.h>
-#include <functional>
-
-#include <event2/event.h>
-#include <event2/bufferevent.h>
+#include "EtClientBase.h"
 
 class CEtNetBase {
 public:
