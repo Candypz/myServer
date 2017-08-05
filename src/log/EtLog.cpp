@@ -11,7 +11,7 @@ CETLog::~CETLog() {
 void CETLog::createLogFile() {
     auto _log = spdlog::daily_logger_mt(LOGNAME, LOGPATH, 3, 30);
 #ifdef _DEBUG
-    _log->flush_on(spdlog::level::info);
+    _log->flush_on(spdlog::level::debug);
 #else
     _log->flush_on(spdlog::level::err);
     _log->set_level(spdlog::level::info);
