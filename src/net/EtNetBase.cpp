@@ -40,7 +40,8 @@ void read_cb(struct bufferevent *bev, void *arg) {
 }
 
 void write_cb(struct bufferevent *bev, void *arg) {
-
+    evutil_socket_t fd = bufferevent_getfd(bev);
+    LOG_INFO("{0}", fd);
 }
 
 void error_cb(struct bufferevent *bev, short event, void *arg) {
@@ -76,7 +77,7 @@ void do_Accept(evutil_socket_t listener, short event, void *arg) {
     LOG_INFO("client init addr:{0} port:{1}", inet_ntoa(_sin.sin_addr), _sin.sin_port);
 
     struct bufferevent *_bev = bufferevent_socket_new(_base, _fd, BEV_OPT_CLOSE_ON_FREE);
-    bufferevent_setcb(_bev, read_cb, NULL, error_cb, arg);
+    bufferevent_setcb(_bev, read_cb, write_cb, error_cb, arg);
     bufferevent_enable(_bev, EV_READ|EV_WRITE|EV_PERSIST);
     std::shared_ptr<CEtClientBase> _client(new CEtClientBase(_fd, _bev));
     _client->listenHeartbeat();
