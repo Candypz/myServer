@@ -41,17 +41,13 @@ const char *CEtClientBase::encode(short cmd, const char *data, int len)const {
 
 void CEtClientBase::heartbeatCb() {
     send(11, "111", sizeof("111"));
-    //listenHeartbeat();
+    listenHeartbeat();
 }
 
 void CEtClientBase::listenHeartbeat() {
     struct event *_evTime;
     struct timeval _time = {5, 0};
-    //evtimer_set(&_evTime, [](int fd, short event, void* arg){
-    //    CEtClientMag::heartbeat(fd);
-    //}, &_evTime);
-    //event_add(&_evTime, &_time);
-    _evTime = event_new(m_bev->ev_base, m_pid, EV_PERSIST|EV_READ, [](int fd, short event, void *arg){
+    _evTime = event_new(m_bev->ev_base, m_pid, EV_ET, [](int fd, short event, void *arg){
         CEtClientMag::heartbeat(fd);
     }, event_self_cbarg());
     event_add(_evTime, &_time);
