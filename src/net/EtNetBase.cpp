@@ -12,12 +12,11 @@
 #include "EtNetBase.h"
 #include "EtClientMag.h"
 
-#define LISTEN_POINT 28199
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
 
-CEtNetBase::CEtNetBase() {
-
+CEtNetBase::CEtNetBase(int port) {
+    m_port = port;
 }
 
 CEtNetBase::~CEtNetBase() {
@@ -94,7 +93,7 @@ int CEtNetBase::run() {
     struct sockaddr_in _sin;
     _sin.sin_family = AF_INET;
     _sin.sin_addr.s_addr = 0;
-    _sin.sin_port = htons(LISTEN_POINT);
+    _sin.sin_port = htons(m_port);
 
     if (bind(_listener, (struct sockaddr *) &_sin, sizeof(_sin)) < 0) {
         LOG_ERR("bind");

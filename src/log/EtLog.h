@@ -1,3 +1,6 @@
+#ifndef _ETLOG_H_
+#define _ETLOG_H_
+
 #include <iostream>
 #include <spdlog/spdlog.h>
 
@@ -16,3 +19,5 @@ public:
     ~CETLog();
     void createLogFile();
 };
+
+#endif

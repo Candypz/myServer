@@ -1,3 +1,6 @@
+#ifndef _ETCLIENTMAG_H_
+#define _ETCLIENTMAG_H_
+
 #include <memory>
 #include <mutex>
 #include <unordered_map>
@@ -15,3 +18,6 @@ private:
     static std::unordered_map<int, std::shared_ptr<CEtClientBase>> m_clientMap;
     static std::mutex m_mutex;
 };
+
+
+#endif

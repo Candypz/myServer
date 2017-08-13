@@ -11,7 +11,6 @@
 CEtClientBase::CEtClientBase(int pid, struct bufferevent *bev) {
     m_pid = pid;
     m_bev = std::move(bev);
-    m_heartbeatFlag = false;
 }
 
 CEtClientBase::~CEtClientBase() {

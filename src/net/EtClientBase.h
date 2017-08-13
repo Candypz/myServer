@@ -1,3 +1,6 @@
+#ifndef _ETCLIENTBASE_H_
+#define _ETCLIENTBASE_H_
+
 #include <functional>
 
 class CEtClientBase {
@@ -13,5 +16,6 @@ private:
     const char *encode(short cmd, const char *data, int len)const;
     int m_pid;
     bufferevent *m_bev;
-    bool m_heartbeatFlag;
 };
+
+#endif

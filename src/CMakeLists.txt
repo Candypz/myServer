@@ -1,2 +1,6 @@
+INCLUDE_DIRECTORIES(
+    ${CMAKE_SOURCE_DIR}/res/jsonCfg
+)
+
 ADD_EXECUTABLE(main main.cpp)
-TARGET_LINK_LIBRARIES(main EtLog EtNet)
+TARGET_LINK_LIBRARIES(main EtLog EtNet EtCommon)
