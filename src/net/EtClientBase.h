@@ -14,7 +14,7 @@ public:
     void heartbeatCb();
 private:
     const char *encode(short cmd, const char *data, int len)const;
-    int m_pid;
+    int m_fd;
     bufferevent *m_bev;
 };
 

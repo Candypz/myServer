@@ -8,8 +8,8 @@
 #include "EtClientMag.h"
 #include "EtLog.h"
 
-CEtClientBase::CEtClientBase(int pid, struct bufferevent *bev) {
-    m_pid = pid;
+CEtClientBase::CEtClientBase(int fd, struct bufferevent *bev) {
+    m_fd = fd;
     m_bev = std::move(bev);
 }
 
@@ -18,7 +18,7 @@ CEtClientBase::~CEtClientBase() {
 }
 
 int CEtClientBase::getPid() {
-    return m_pid;
+    return m_fd;
 }
 
 int CEtClientBase::send(short cmd, const char *data, int len) {
@@ -46,7 +46,7 @@ void CEtClientBase::heartbeatCb() {
 void CEtClientBase::listenHeartbeat() {
     struct event *_evTime;
     struct timeval _time = {5, 0};
-    _evTime = event_new(m_bev->ev_base, m_pid, EV_ET, [](int fd, short event, void *arg){
+    _evTime = event_new(m_bev->ev_base, m_fd, EV_ET, [](int fd, short event, void *arg){
         CEtClientMag::heartbeat(fd);
     }, event_self_cbarg());
     event_add(_evTime, &_time);

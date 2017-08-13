@@ -4,39 +4,39 @@
 std::unordered_map<int, std::shared_ptr<CEtClientBase>> CEtClientMag::m_clientMap;
 std::mutex CEtClientMag::m_mutex;
 
-void CEtClientMag::addClient(int pid, std::shared_ptr<CEtClientBase> client) {
+void CEtClientMag::addClient(int fd, std::shared_ptr<CEtClientBase> client) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_clientMap[pid] = client;
+    m_clientMap[fd] = client;
 }
 
-void CEtClientMag::removeClient(int pid) {
+void CEtClientMag::removeClient(int fd) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_clientMap[pid]) {
-        m_clientMap.erase(pid);
+    if (m_clientMap[fd]) {
+        m_clientMap.erase(fd);
     }
 }
 
-void CEtClientMag::sendByPid(int pid, short cmd, const char *data, int len) {
+void CEtClientMag::sendByFd(int fd, short cmd, const char *data, int len) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_clientMap[pid]) {
-        m_clientMap[pid]->send(cmd, data, len);
+    if (m_clientMap[fd]) {
+        m_clientMap[fd]->send(cmd, data, len);
     }
 }
 
-void CEtClientMag::sendByGid(int gid) {
+void CEtClientMag::sendByPid(int pid) {
     std::lock_guard<std::mutex> lock(m_mutex);
 }
 
-void CEtClientMag::decode(int pid, const char *data, int len) {
+void CEtClientMag::decode(int fd, const char *data, int len) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_clientMap[pid]) {
-        m_clientMap[pid]->decode(data, len);
+    if (m_clientMap[fd]) {
+        m_clientMap[fd]->decode(data, len);
     }
 }
 
-void CEtClientMag::heartbeat(int pid) {
+void CEtClientMag::heartbeat(int fd) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_clientMap[pid]) {
-        m_clientMap[pid]->heartbeatCb();
+    if (m_clientMap[fd]) {
+        m_clientMap[fd]->heartbeatCb();
     }
 }
