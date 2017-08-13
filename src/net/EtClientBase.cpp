@@ -28,6 +28,7 @@ int CEtClientBase::send(short cmd, const char *data, int len) {
             bufferevent_write(m_bev, _data, len);
         }
     }
+    return 1;
 }
 
 void CEtClientBase::decode(const char *data, int len) {

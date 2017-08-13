@@ -17,7 +17,7 @@ std::string Common::loadFileData(std::string fileName) {
     using std::ifstream;
     string stringFromStream;
     ifstream    in;
-    fileName = "../res/" + fileName;
+    fileName = "../../res/" + fileName;
     in.open(fileName, ifstream::in);
     if (!in.is_open()) {
         LOG_ERR("{0} not find", fileName);

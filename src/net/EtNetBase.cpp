@@ -84,7 +84,6 @@ void do_Accept(evutil_socket_t listener, short event, void *arg) {
 }
 
 int CEtNetBase::run() {
-    int _ret = 0;
     evutil_socket_t _listener;
     _listener = socket(AF_INET, SOCK_STREAM, 0);
     assert(_listener > 0);
