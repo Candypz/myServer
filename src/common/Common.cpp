@@ -1,5 +1,4 @@
 #include "Common.h"
-#include "EtLog.h"
 #include <fstream>
 
 using namespace rapidjson;
@@ -20,7 +19,6 @@ std::string Common::loadFileData(std::string fileName) {
     fileName = "../../res/" + fileName;
     in.open(fileName, ifstream::in);
     if (!in.is_open()) {
-        LOG_ERR("{0} not find", fileName);
         return "error";
     }
     string line;

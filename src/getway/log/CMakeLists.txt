@@ -1,0 +1,2 @@
+FILE(GLOB SOURCE_LOG *.h *.cpp *.cc)
+ADD_LIBRARY(EtGetWayLog STATIC ${SOURCE_LOG})

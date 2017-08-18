@@ -7,7 +7,7 @@ class CEtClientBase {
 public:
     CEtClientBase(int pid, struct bufferevent *bev);
     ~CEtClientBase();
-    int getPid();
+    int getFd();
     int send(short cmd, const char *data, int len);
     void decode(const char *data, int len);
     void listenHeartbeat();

@@ -1,6 +1,6 @@
-#include "log/EtLog.h"
-#include "net/EtNetBase.h"
-#include "common/Common.h"
+#include "EtLog.h"
+#include "EtNetBase.h"
+#include "Common.h"
 
 int main() {
     std::shared_ptr<CETLog> _log(new CETLog);

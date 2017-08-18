@@ -1,5 +1,4 @@
 INCLUDE_DIRECTORIES(
-    ${CMAKE_SOURCE_DIR}/src/log
     ${CMAKE_SOURCE_DIR}/res/jsonCfg
 )
 

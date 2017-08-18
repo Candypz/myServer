@@ -16,7 +16,6 @@ public:
     static void heartbeat(int fd);
 private:
     static std::unordered_map<int, std::shared_ptr<CEtClientBase>> m_clientMap;
-    static std::mutex m_mutex;
 };
 
 

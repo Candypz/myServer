@@ -17,7 +17,7 @@ CEtClientBase::~CEtClientBase() {
 
 }
 
-int CEtClientBase::getPid() {
+int CEtClientBase::getFd() {
     return m_fd;
 }
 
