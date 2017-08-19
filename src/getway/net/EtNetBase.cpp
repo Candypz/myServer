@@ -15,8 +15,9 @@
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
 
-CEtNetBase::CEtNetBase(int port) {
+CEtNetBase::CEtNetBase(int port, std::string addr) {
     m_port = port;
+    m_addr = addr;
 }
 
 CEtNetBase::~CEtNetBase() {
@@ -91,7 +92,7 @@ int CEtNetBase::run() {
 
     struct sockaddr_in _sin;
     _sin.sin_family = AF_INET;
-    _sin.sin_addr.s_addr = 0;
+    _sin.sin_addr.s_addr = inet_addr(m_addr.c_str());
     _sin.sin_port = htons(m_port);
 
     if (bind(_listener, (struct sockaddr *) &_sin, sizeof(_sin)) < 0) {

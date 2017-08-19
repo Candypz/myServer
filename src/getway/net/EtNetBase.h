@@ -5,11 +5,12 @@
 
 class CEtNetBase {
 public:
-    CEtNetBase(int port);
+    CEtNetBase(int port, std::string addr);
     ~CEtNetBase();
     int run();
 private:
     int m_port;
+    std::string m_addr;
 };
 
 #endif
