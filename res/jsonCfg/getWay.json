@@ -1,4 +1,7 @@
 {
     "addr": "127.0.0.1",
-    "port": 2819
+    "port": 2819,
+    "type": 1,
+    "id"  : 1,
+    "name": "getway"
 }
