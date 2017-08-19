@@ -1,0 +1,7 @@
+INCLUDE_DIRECTORIES(
+    ${CMAKE_SOURCE_DIR}/src/common
+    ${CMAKE_SOURCE_DIR}/src/proto
+)
+
+FILE(GLOB SOURCE_MSG *.h *.cpp *.cc)
+ADD_LIBRARY(EtDBMsg STATIC ${SOURCE_MSG})

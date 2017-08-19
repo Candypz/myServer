@@ -10,21 +10,32 @@
 
 #include "EtLog.h"
 #include "EtNetBase.h"
+#include "Common.h"
+#include "EtMessageMsg.h"
 
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
 
-CEtNetBase::CEtNetBase(int port, std::string addr) {
-    m_port = port;
-    m_addr = addr;
+CEtNetBase::CEtNetBase() {
+
 }
 
 CEtNetBase::~CEtNetBase() {
 
 }
 
-void do_Accept(evutil_socket_t listener, short event, void *arg) {
-    LOG_INFO("connect getway ok")
+bool CEtNetBase::init() {
+    rapidjson::Document _doc;
+    if (Common::loadJsonFile(_doc, "jsonCfg/getWay.json")) {
+        m_port = _doc["port"].GetInt();
+        m_addr = _doc["addr"].GetString();
+        m_serverName = _doc["name"].GetString();
+        m_serverId   = _doc["id"].GetInt();
+        m_serverType = _doc["type"].GetInt();
+        CEtMessageMsg::getInstance().setServerInfo(m_serverId, m_serverType);
+        return true;
+    }
+    return false;
 }
 
 void read_cb(struct bufferevent *bev, void *arg) {
@@ -56,6 +67,12 @@ void error_cb(struct bufferevent *bev, short event, void *arg) {
     else if (event & BEV_EVENT_ERROR) {
         LOG_ERR("some other error");
     }
+    else if (event & BEV_EVENT_CONNECTED) {
+        LOG_CRIT("getway connect");
+        //注册
+        CEtMessageMsg::getInstance().registration(bev);
+        return;
+    }
     bufferevent_free(bev);
 }
 
@@ -69,13 +86,9 @@ int CEtNetBase::run() {
     _sin.sin_addr.s_addr = inet_addr(m_addr.c_str());
     _sin.sin_port = htons(m_port);
 
-    struct event *_listen_event;
-    _listen_event = event_new(_base, STDIN_FILENO, EV_READ|EV_PERSIST, do_Accept, (void*)_base);
-    event_add(_listen_event, NULL);
-
+    bufferevent_setcb(_bev, read_cb, write_cb, error_cb, NULL);
     bufferevent_socket_connect(_bev, (struct sockaddr *)&_sin, sizeof(_sin));
-    bufferevent_setcb(_bev, read_cb, write_cb, error_cb, (void *)_listen_event);
-    bufferevent_enable(_bev, EV_READ|EV_PERSIST);
+    bufferevent_enable(_bev, EV_READ|EV_WRITE);
     event_base_dispatch(_base);
 
     return 0;

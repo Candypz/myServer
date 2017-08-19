@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+//Req 发
+//Res 收
+
+
+message Registration_Req {
+    int64 registration_time = 1;
+}

@@ -45,10 +45,10 @@ void CEtClientBase::heartbeatCb() {
 }
 
 void CEtClientBase::listenHeartbeat() {
-    struct event *_evTime;
-    struct timeval _time = {5, 0};
-    _evTime = event_new(m_bev->ev_base, m_fd, EV_ET, [](int fd, short event, void *arg){
-        CEtClientMag::heartbeat(fd);
-    }, event_self_cbarg());
-    event_add(_evTime, &_time);
+    // struct event *_evTime;
+    // struct timeval _time = {5, 0};
+    // _evTime = event_new(m_bev->ev_base, m_fd, EV_ET, [](int fd, short event, void *arg){
+    //     CEtClientMag::heartbeat(fd);
+    // }, event_self_cbarg());
+    // event_add(_evTime, &_time);
 }

@@ -17,5 +17,5 @@ void CETLog::createLogFile() {
     _log->flush_on(spdlog::level::err);
     _log->set_level(spdlog::level::info);
 #endif
-    LOG_CRIT("start getway server");
+    LOG_CRIT("start db server");
 }
