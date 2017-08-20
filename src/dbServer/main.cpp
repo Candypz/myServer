@@ -10,6 +10,6 @@ int main() {
     if (_net->init()) {
         _net->run();
     }
-    
+
     return 0;
 }
