@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+//Req 发
+//Res 收
+
+//1000
+message Registration_Req {
+    int64 registration_time = 1;
+}
+
+//1001
+message Registration_Res {
+    int64 server_tiem = 1;
+}

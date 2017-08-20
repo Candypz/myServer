@@ -1,5 +1,6 @@
 INCLUDE_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/res/jsonCfg
+    ${CMAKE_SOURCE_DIR}/src/proto
 )
 
 FILE(GLOB SOURCE_COMMON *.h *.cpp *.cc)

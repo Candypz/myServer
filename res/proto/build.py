@@ -1,5 +1,11 @@
 import sys
 import os, os.path
 
-os.system('protoc MessageBase.proto --cpp_out=../../src/proto')
-os.system('protoc SMsgBaseS.proto --cpp_out=../../src/proto')
+def file_name(file_dir):
+    for root, dirs, files in os.walk(file_dir):
+        for filename in files:
+            if filename != 'build.py':
+                os.system('protoc ' + filename + ' --cpp_out=../../src/proto')
+                print(filename + " build ok!")
+
+file_name(".")
