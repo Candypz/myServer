@@ -1,5 +1,6 @@
 INCLUDE_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/src/common
+    ${CMAKE_SOURCE_DIR}/src/message
     ${CMAKE_SOURCE_DIR}/src/proto
 )
 

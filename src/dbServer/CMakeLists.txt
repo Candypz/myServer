@@ -11,4 +11,4 @@ ADD_SUBDIRECTORY(net)
 ADD_SUBDIRECTORY(message)
 
 ADD_EXECUTABLE(dbServer main.cpp)
-TARGET_LINK_LIBRARIES(dbServer EtDBNet EtDBMsg EtCommon EtProto EtDBLog)
+TARGET_LINK_LIBRARIES(dbServer EtDBNet EtDBMsg EtCommon EtMesg EtProto EtDBLog)

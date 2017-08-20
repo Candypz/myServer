@@ -32,7 +32,7 @@ void read_cb(struct bufferevent *bev, void *arg) {
     while (_n = bufferevent_read(bev, _line, MAX_LINE), _n > 0) {
        _line[_n] = '\0';
 
-       LOG_INFO("fd = {0}, read line size: {1}", _fd, _n);
+       LOG_INFO("fd = {0},read line size: {1}", _fd, _n);
 
        CEtClientMag::decode(_fd, _line, _n);
        //bufferevent_write(bev, _line, _n);

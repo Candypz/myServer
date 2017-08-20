@@ -1,6 +1,4 @@
 {
-    "addr": "127.0.0.1",
-    "port": 2820,
     "type": 2,
     "id"  : 10001,
     "name": "dbServer"

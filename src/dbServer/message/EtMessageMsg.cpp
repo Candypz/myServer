@@ -5,6 +5,7 @@
 
 #include <event2/bufferevent.h>
 
+
 CEtMessageMsg::CEtMessageMsg():m_bev(nullptr) {
 
 }
@@ -42,5 +43,5 @@ void CEtMessageMsg::registration(struct bufferevent *bev) {
     _req.set_registration_time(CEtTime::now());
     std::string _buff;
     _req.SerializePartialToString(&_buff);
-    send(1, _buff.c_str(), _buff.size());
+    send(S_Registration_Req, _buff.c_str(), _buff.size());
 }
