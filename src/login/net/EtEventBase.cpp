@@ -1,6 +1,5 @@
 #include "EtEventBase.h"
 
-#include <event2/thread.h>
 #include <event2/event.h>
 
 struct event_base* CEtEventBase::m_base = nullptr;
@@ -19,9 +18,7 @@ CEtEventBase &CEtEventBase::getInstance() {
 }
 
 void CEtEventBase::init() {
-    evthread_use_pthreads();
     m_base = event_base_new();
-    evthread_make_base_notifiable(m_base);
 }
 
 bool CEtEventBase::run() {

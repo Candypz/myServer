@@ -4,8 +4,6 @@
 #include "Common.h"
 #include "EtEventBase.h"
 
-#include <thread>
-
 void startClientNet() {
 
 }
@@ -16,12 +14,10 @@ int main() {
 
     CEtEventBase::getInstance().init();
 
-    std::thread _t([]{
-        std::shared_ptr<CEtClientNetBase> _client(new CEtClientNetBase());
-        if (_client->init()) {
-            _client->run();
-        }
-    });
+    std::shared_ptr<CEtClientNetBase> _client(new CEtClientNetBase());
+    if (_client->init()) {
+        _client->run();
+    }
 
     rapidjson::Document _doc;
     if (Common::loadJsonFile(_doc, "jsonCfg/login.json")) {

@@ -10,6 +10,7 @@
 
 #include "EtLog.h"
 #include "EtNetBase.h"
+#include "EtClientBase.h"
 #include "EtClientMag.h"
 #include "EtEventBase.h"
 
