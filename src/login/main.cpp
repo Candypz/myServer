@@ -19,7 +19,6 @@ int main() {
             _client->run();
         }
     });
-    _t.join();
 
     rapidjson::Document _doc;
     if (Common::loadJsonFile(_doc, "jsonCfg/login.json")) {
