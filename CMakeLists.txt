@@ -26,6 +26,7 @@ ENDIF()
 
 LINK_LIBRARIES("/usr/local/lib/libevent.a")
 LINK_LIBRARIES("/usr/local/lib/libprotobuf.a")
+LINK_LIBRARIES("/usr/local/lib/libevent_pthreads.a")
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/lib/)
 INCLUDE_DIRECTORIES(/usr/local/include/)
 INCLUDE_DIRECTORIES(${PROJECT_ROOT_PATH}/)

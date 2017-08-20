@@ -10,6 +10,8 @@
 
 #include "EtLog.h"
 #include "EtNetBase.h"
+#include "EtClientMag.h"
+#include "EtEventBase.h"
 
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
@@ -33,16 +35,17 @@ void read_cb(struct bufferevent *bev, void *arg) {
 
        LOG_INFO("fd = {0},read line size: {1}", _fd, _n);
 
+       CEtClientMag::decode(_fd, _line, _n);
        //bufferevent_write(bev, _line, _n);
     }
 }
 
-void write_cb(struct bufferevent *bev, void *arg) {
+static void write_cb(struct bufferevent *bev, void *arg) {
     evutil_socket_t fd = bufferevent_getfd(bev);
     LOG_INFO("{0}", fd);
 }
 
-void error_cb(struct bufferevent *bev, short event, void *arg) {
+static void error_cb(struct bufferevent *bev, short event, void *arg) {
     evutil_socket_t fd = bufferevent_getfd(bev);
     if (event & BEV_EVENT_TIMEOUT) {
         LOG_ERR("Timed out"); //if bufferevent_set_timeouts() called
@@ -53,10 +56,11 @@ void error_cb(struct bufferevent *bev, short event, void *arg) {
     else if (event & BEV_EVENT_ERROR) {
         LOG_ERR("some other error");
     }
+    CEtClientMag::removeClient(fd);
     bufferevent_free(bev);
 }
 
-void do_Accept(evutil_socket_t listener, short event, void *arg) {
+static void do_Accept(evutil_socket_t listener, short event, void *arg) {
     struct event_base *_base = (struct event_base *)arg;
     evutil_socket_t _fd;
     struct sockaddr_in _sin;
@@ -76,6 +80,8 @@ void do_Accept(evutil_socket_t listener, short event, void *arg) {
     struct bufferevent *_bev = bufferevent_socket_new(_base, _fd, BEV_OPT_CLOSE_ON_FREE);
     bufferevent_setcb(_bev, read_cb, write_cb, error_cb, arg);
     bufferevent_enable(_bev, EV_READ|EV_WRITE|EV_PERSIST);
+    std::shared_ptr<CEtClientBase> _client(new CEtClientBase(_fd, _bev));
+    CEtClientMag::addClient(_fd, _client);
 }
 
 int CEtNetBase::run() {
@@ -101,13 +107,11 @@ int CEtNetBase::run() {
 
     evutil_make_socket_nonblocking(_listener);
 
-    struct event_base *_base = event_base_new();
-    assert(_base != NULL);
+    assert(CEtEventBase::m_base != NULL);
     struct event *_listen_event;
-    _listen_event = event_new(_base, _listener, EV_READ|EV_PERSIST, do_Accept, (void*)_base);
+    _listen_event = event_new(CEtEventBase::m_base, _listener, EV_READ|EV_PERSIST, do_Accept, (void*)CEtEventBase::m_base);
     event_add(_listen_event, NULL);
     LOG_CRIT("server init");
-    event_base_dispatch(_base);
 
     return 0;
 }

@@ -5,8 +5,6 @@
 #include <event2/bufferevent.h>
 
 #include "EtClientBase.h"
-#include "EtClientMag.h"
-#include "EtLog.h"
 
 CEtClientBase::CEtClientBase(int fd, struct bufferevent *bev) {
     m_fd = fd;

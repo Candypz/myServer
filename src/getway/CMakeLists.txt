@@ -9,4 +9,4 @@ ADD_SUBDIRECTORY(log)
 ADD_SUBDIRECTORY(net)
 
 ADD_EXECUTABLE(getway main.cpp)
-TARGET_LINK_LIBRARIES(getway EtGetWayLog EtGetWayNet EtCommon)
+TARGET_LINK_LIBRARIES(getway EtGetWayLog EtGetWayNet EtMesg EtCommon)

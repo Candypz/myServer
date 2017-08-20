@@ -1,6 +1,7 @@
 INCLUDE_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/res/jsonCfg
     ${CMAKE_SOURCE_DIR}/src/proto
+    ${CMAKE_SOURCE_DIR}/src/log
 )
 
 FILE(GLOB_RECURSE SOURCE_MESG *.h *.cpp *.cc)

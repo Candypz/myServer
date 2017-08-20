@@ -8,9 +8,7 @@ int main() {
 
     rapidjson::Document _doc;
     if (Common::loadJsonFile(_doc, "jsonCfg/getWay.json")) {
-        auto &_port = _doc["port"];
-        auto &_addr = _doc["addr"];
-        std::shared_ptr<CEtNetBase> _net(new CEtNetBase(_port.GetInt(), _addr.GetString()));
+        std::shared_ptr<CEtNetBase> _net(new CEtNetBase(_doc["port"].GetInt(), _doc["addr"].GetString()));
         _net->run();
     }
 
