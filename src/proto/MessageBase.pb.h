@@ -129,12 +129,19 @@ class MsgHeader : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::google::protobuf::int32 server_type() const;
   void set_server_type(::google::protobuf::int32 value);
 
+  // int64 time_stamp = 3;
+  void clear_time_stamp();
+  static const int kTimeStampFieldNumber = 3;
+  ::google::protobuf::int64 time_stamp() const;
+  void set_time_stamp(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MsgHeader)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int32 server_id_;
   ::google::protobuf::int32 server_type_;
+  ::google::protobuf::int64 time_stamp_;
   mutable int _cached_size_;
   friend struct protobuf_MessageBase_2eproto::TableStruct;
 };
@@ -277,6 +284,20 @@ inline void MsgHeader::set_server_type(::google::protobuf::int32 value) {
   
   server_type_ = value;
   // @@protoc_insertion_point(field_set:MsgHeader.server_type)
+}
+
+// int64 time_stamp = 3;
+inline void MsgHeader::clear_time_stamp() {
+  time_stamp_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 MsgHeader::time_stamp() const {
+  // @@protoc_insertion_point(field_get:MsgHeader.time_stamp)
+  return time_stamp_;
+}
+inline void MsgHeader::set_time_stamp(::google::protobuf::int64 value) {
+  
+  time_stamp_ = value;
+  // @@protoc_insertion_point(field_set:MsgHeader.time_stamp)
 }
 
 // -------------------------------------------------------------------

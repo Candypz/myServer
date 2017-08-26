@@ -53,6 +53,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHeader, server_id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHeader, server_type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgHeader, time_stamp_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -65,7 +66,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(MsgHeader)},
-  { 7, -1, sizeof(Message)},
+  { 8, -1, sizeof(Message)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -121,13 +122,14 @@ namespace {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\021MessageBase.proto\"3\n\tMsgHeader\022\021\n\tserv"
-      "er_id\030\001 \001(\005\022\023\n\013server_type\030\002 \001(\005\"C\n\007Mess"
-      "age\022\032\n\006header\030\001 \001(\0132\n.MsgHeader\022\017\n\007conte"
-      "nt\030\002 \001(\014\022\013\n\003cmd\030\003 \001(\005b\006proto3"
+      "\n\021MessageBase.proto\"G\n\tMsgHeader\022\021\n\tserv"
+      "er_id\030\001 \001(\005\022\023\n\013server_type\030\002 \001(\005\022\022\n\ntime"
+      "_stamp\030\003 \001(\003\"C\n\007Message\022\032\n\006header\030\001 \001(\0132"
+      "\n.MsgHeader\022\017\n\007content\030\002 \001(\014\022\013\n\003cmd\030\003 \001("
+      "\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 149);
+      descriptor, 169);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageBase.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -153,6 +155,7 @@ struct StaticDescriptorInitializer {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MsgHeader::kServerIdFieldNumber;
 const int MsgHeader::kServerTypeFieldNumber;
+const int MsgHeader::kTimeStampFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MsgHeader::MsgHeader()
@@ -169,15 +172,15 @@ MsgHeader::MsgHeader(const MsgHeader& from)
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&server_id_, &from.server_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&server_type_) -
-    reinterpret_cast<char*>(&server_id_)) + sizeof(server_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&time_stamp_) -
+    reinterpret_cast<char*>(&server_id_)) + sizeof(time_stamp_));
   // @@protoc_insertion_point(copy_constructor:MsgHeader)
 }
 
 void MsgHeader::SharedCtor() {
   ::memset(&server_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&server_type_) -
-      reinterpret_cast<char*>(&server_id_)) + sizeof(server_type_));
+      reinterpret_cast<char*>(&time_stamp_) -
+      reinterpret_cast<char*>(&server_id_)) + sizeof(time_stamp_));
   _cached_size_ = 0;
 }
 
@@ -215,8 +218,8 @@ MsgHeader* MsgHeader::New(::google::protobuf::Arena* arena) const {
 void MsgHeader::Clear() {
 // @@protoc_insertion_point(message_clear_start:MsgHeader)
   ::memset(&server_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&server_type_) -
-      reinterpret_cast<char*>(&server_id_)) + sizeof(server_type_));
+      reinterpret_cast<char*>(&time_stamp_) -
+      reinterpret_cast<char*>(&server_id_)) + sizeof(time_stamp_));
 }
 
 bool MsgHeader::MergePartialFromCodedStream(
@@ -251,6 +254,20 @@ bool MsgHeader::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &server_type_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int64 time_stamp = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &time_stamp_)));
         } else {
           goto handle_unusual;
         }
@@ -294,6 +311,11 @@ void MsgHeader::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->server_type(), output);
   }
 
+  // int64 time_stamp = 3;
+  if (this->time_stamp() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->time_stamp(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:MsgHeader)
 }
 
@@ -312,6 +334,11 @@ void MsgHeader::SerializeWithCachedSizes(
   // int32 server_type = 2;
   if (this->server_type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->server_type(), target);
+  }
+
+  // int64 time_stamp = 3;
+  if (this->time_stamp() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->time_stamp(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:MsgHeader)
@@ -334,6 +361,13 @@ size_t MsgHeader::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->server_type());
+  }
+
+  // int64 time_stamp = 3;
+  if (this->time_stamp() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->time_stamp());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -371,6 +405,9 @@ void MsgHeader::MergeFrom(const MsgHeader& from) {
   if (from.server_type() != 0) {
     set_server_type(from.server_type());
   }
+  if (from.time_stamp() != 0) {
+    set_time_stamp(from.time_stamp());
+  }
 }
 
 void MsgHeader::CopyFrom(const ::google::protobuf::Message& from) {
@@ -398,6 +435,7 @@ void MsgHeader::Swap(MsgHeader* other) {
 void MsgHeader::InternalSwap(MsgHeader* other) {
   std::swap(server_id_, other->server_id_);
   std::swap(server_type_, other->server_type_);
+  std::swap(time_stamp_, other->time_stamp_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -435,6 +473,20 @@ void MsgHeader::set_server_type(::google::protobuf::int32 value) {
   
   server_type_ = value;
   // @@protoc_insertion_point(field_set:MsgHeader.server_type)
+}
+
+// int64 time_stamp = 3;
+void MsgHeader::clear_time_stamp() {
+  time_stamp_ = GOOGLE_LONGLONG(0);
+}
+::google::protobuf::int64 MsgHeader::time_stamp() const {
+  // @@protoc_insertion_point(field_get:MsgHeader.time_stamp)
+  return time_stamp_;
+}
+void MsgHeader::set_time_stamp(::google::protobuf::int64 value) {
+  
+  time_stamp_ = value;
+  // @@protoc_insertion_point(field_set:MsgHeader.time_stamp)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
