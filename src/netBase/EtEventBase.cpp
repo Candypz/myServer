@@ -1,8 +1,11 @@
 #include "EtEventBase.h"
 
 #include <event2/event.h>
+#include <event2/bufferevent.h>
+#include <event2/buffer.h>
 
 struct event_base* CEtEventBase::m_base = nullptr;
+struct evbuffer* CEtEventBase::m_buff = nullptr;
 
 CEtEventBase::CEtEventBase() {
 
@@ -19,6 +22,7 @@ CEtEventBase &CEtEventBase::getInstance() {
 
 void CEtEventBase::init() {
     m_base = event_base_new();
+    m_buff = evbuffer_new();
 }
 
 bool CEtEventBase::run() {

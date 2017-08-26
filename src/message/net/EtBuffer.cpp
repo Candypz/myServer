@@ -1,16 +1,18 @@
 #include "EtBuffer.h"
 #include "MessageCmd.h"
 #include "EtTime.h"
+#include "EtEventBase.h"
+
+#include <event2/buffer.h>
 
 CEtBuffer::CEtBuffer(int serverId, int serverType) {
     m_serverId = serverId;
     m_serverType = serverType;
     m_head = new MsgHeader();
-    m_buff = evbuffer_new();
 }
 
 CEtBuffer::~CEtBuffer() {
-    delete m_head;
+
 }
 
 std::string CEtBuffer::create(int cmd, const char *data) {
@@ -27,14 +29,12 @@ std::string CEtBuffer::create(int cmd, const char *data) {
     Msg::PackageHead *_pack;
     _pack->size = _buff.size() + sizeof(_pack);
 
-    evbuffer_add(m_buff, _pack, sizeof(_pack));
-    evbuffer_add(m_buff, _buff.c_str(), _buff.size());
+    evbuffer_add(CEtEventBase::m_buff, _pack, sizeof(_pack));
+    evbuffer_add(CEtEventBase::m_buff, _buff.c_str(), _buff.size());
 
-    char _etBuf[evbuffer_get_length(m_buff)] = {0};
+    char *_etBuf;
 
-    evbuffer_remove(m_buff, &_etBuf, evbuffer_get_length(m_buff));
-
-    evbuffer_free(m_buff);
+    evbuffer_remove(CEtEventBase::m_buff, &_etBuf, evbuffer_get_length(CEtEventBase::m_buff));
 
     return _etBuf;
 }

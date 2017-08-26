@@ -12,6 +12,7 @@
 #include "EtNetBase.h"
 #include "Common.h"
 #include "EtMessageMsg.h"
+#include "EtEventBase.h"
 
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
@@ -77,9 +78,8 @@ void error_cb(struct bufferevent *bev, short event, void *arg) {
 }
 
 int CEtNetBase::run() {
-    struct event_base *_base = event_base_new();
-    struct bufferevent *_bev = bufferevent_socket_new(_base, -1, BEV_OPT_CLOSE_ON_FREE);
-    assert(_base != NULL);
+    struct bufferevent *_bev = bufferevent_socket_new(CEtEventBase::m_base, -1, BEV_OPT_CLOSE_ON_FREE);
+    assert(CEtEventBase::m_base != NULL);
 
     struct sockaddr_in _sin;
     _sin.sin_family = AF_INET;
@@ -89,7 +89,7 @@ int CEtNetBase::run() {
     bufferevent_setcb(_bev, read_cb, write_cb, error_cb, NULL);
     bufferevent_socket_connect(_bev, (struct sockaddr *)&_sin, sizeof(_sin));
     bufferevent_enable(_bev, EV_READ|EV_WRITE);
-    event_base_dispatch(_base);
+    event_base_dispatch(CEtEventBase::m_base);
 
     return 0;
 }

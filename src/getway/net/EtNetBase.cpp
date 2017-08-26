@@ -12,6 +12,7 @@
 #include "EtNetBase.h"
 #include "EtClientBase.h"
 #include "EtClientMag.h"
+#include "EtEventBase.h"
 
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
@@ -108,13 +109,12 @@ int CEtNetBase::run() {
 
     evutil_make_socket_nonblocking(_listener);
 
-    struct event_base *_base = event_base_new();
-    assert(_base != NULL);
+    assert(CEtEventBase::m_base != NULL);
     struct event *_listen_event;
-    _listen_event = event_new(_base, _listener, EV_READ|EV_PERSIST, do_Accept, (void*)_base);
+    _listen_event = event_new(CEtEventBase::m_base, _listener, EV_READ|EV_PERSIST, do_Accept, (void*)CEtEventBase::m_base);
     event_add(_listen_event, NULL);
     LOG_CRIT("server init");
-    event_base_dispatch(_base);
+    event_base_dispatch(CEtEventBase::m_base);
 
     return 0;
 }
