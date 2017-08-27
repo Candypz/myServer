@@ -33,10 +33,12 @@ void CEtBuffer::create(int cmd, const char *data) {
 
     evbuffer_add(CEtEventBase::getInstance().getWriteBuffer(), &_pack, sizeof(_pack));
     evbuffer_add(CEtEventBase::getInstance().getWriteBuffer(), _buff.c_str(), _buff.size());
+    
+    m_size = evbuffer_get_length(CEtEventBase::getInstance().getWriteBuffer());
 }
 
-int CEtBuffer::getSize() {
-    return evbuffer_get_length(CEtEventBase::getInstance().getWriteBuffer());
+size_t CEtBuffer::getSize() {
+    return m_size;
 }
 
 const char *CEtBuffer::getData() {

@@ -27,8 +27,9 @@ void CEtMessageMsg::setServerInfo(int serverId, int serverType) {
 
 bool CEtMessageMsg::send(int cmd, const char *data, int len) {
     if (m_bev) {
-        auto _buff = m_messageTool->createMessage(cmd, data, len);
-        bufferevent_write(m_bev, _buff.c_str(), _buff.size());
+        size_t _size;
+        auto _buff = m_messageTool->createMessage(cmd, data, &_size);
+        bufferevent_write(m_bev, _buff, _size);
         return true;
     }
     else {
