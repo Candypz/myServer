@@ -7,7 +7,7 @@ class CEtBuffer :public std::enable_shared_from_this<CEtBuffer> {
 public:
     CEtBuffer(int serverId, int serverType);
     virtual ~CEtBuffer();
-    std::string create(int cmd, const char *data);
+    const char *create(int cmd, const char *data, int *len);
 private:
     int m_serverId;
     int m_serverType;

@@ -5,7 +5,6 @@
 #include <event2/buffer.h>
 
 struct event_base* CEtEventBase::m_base = nullptr;
-struct evbuffer* CEtEventBase::m_buff = nullptr;
 
 CEtEventBase::CEtEventBase() {
 
@@ -28,4 +27,8 @@ void CEtEventBase::init() {
 bool CEtEventBase::run() {
     event_base_dispatch(m_base);
     return true;
+}
+
+struct evbuffer* CEtEventBase::getEvBuffer() {
+    return m_buff;
 }

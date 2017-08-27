@@ -13,6 +13,7 @@
 #include "EtClientBase.h"
 #include "EtClientMag.h"
 #include "EtEventBase.h"
+#include "MessageCmd.h"
 
 #define LISTEN_BACKLOG 32
 #define MAX_LINE    256
@@ -27,14 +28,15 @@ CEtNetBase::~CEtNetBase() {
 }
 
 void read_cb(struct bufferevent *bev, void *arg) {
-    char _line[MAX_LINE+1];
+    char _line[MAX_LINE+1] = {};
     int _n;
     evutil_socket_t _fd = bufferevent_getfd(bev);
 
     while (_n = bufferevent_read(bev, _line, MAX_LINE), _n > 0) {
        _line[_n] = '\0';
-
-       LOG_INFO("fd = {0},read line size: {1}", _fd, _n);
+        
+        
+        LOG_INFO("fd = {0},read line size: {1}", _fd, _n);
 
        CEtClientMag::decode(_fd, _line, _n);
        //bufferevent_write(bev, _line, _n);
