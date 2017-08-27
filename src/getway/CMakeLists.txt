@@ -4,6 +4,8 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/src/getway/net
     ${CMAKE_SOURCE_DIR}/src/getway/log
     ${CMAKE_SOURCE_DIR}/src/netBase
+    ${CMAKE_SOURCE_DIR}/src/message
+    ${CMAKE_SOURCE_DIR}/src/message/net
 )
 
 ADD_SUBDIRECTORY(log)

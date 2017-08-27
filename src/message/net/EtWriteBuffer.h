@@ -1,5 +1,5 @@
-#ifndef _ETBUFFER_H_
-#define _ETBUFFER_H_
+#ifndef _ETWRITEBUFFER_H_
+#define _ETWRITEBUFFER_H_
 
 #include "MessageBase.pb.h"
 #include "MessageCmd.h"

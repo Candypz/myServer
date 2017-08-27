@@ -1,5 +1,6 @@
 INCLUDE_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/src/message
+    ${CMAKE_SOURCE_DIR}/src/message/net
     ${CMAKE_SOURCE_DIR}/src/getway/log
     ${CMAKE_SOURCE_DIR}/src/netBase
 )

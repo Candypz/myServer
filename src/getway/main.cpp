@@ -2,12 +2,16 @@
 #include "EtNetBase.h"
 #include "Common.h"
 #include "EtEventBase.h"
+#include "EtReadBuffer.h"
 
 int main() {
     std::shared_ptr<CETLog> _log(new CETLog);
     _log->createLogFile();
 
     CEtEventBase::getInstance().init();
+    CEtReadBuffer::getInstance().callBack = [](const auto data, auto len) {
+        LOG_CRIT("call back {0},{1}", len, data);
+    };
 
     rapidjson::Document _doc;
     if (Common::loadJsonFile(_doc, "jsonCfg/getWay.json")) {
