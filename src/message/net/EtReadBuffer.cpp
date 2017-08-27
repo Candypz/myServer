@@ -15,8 +15,9 @@ CEtReadBuffer::~CEtReadBuffer() {
 }
 
 bool CEtReadBuffer::read(evutil_socket_t fd, const char *data, size_t len) {
-    evbuffer_add(CEtEventBase::getInstance().getReadBuffer(), &data, len);
-    if (len < sizeof(Msg::PackageHead)) {
+    evbuffer_add(CEtEventBase::getInstance().getReadBuffer(), data, len);
+    auto _buffSize = evbuffer_get_length(CEtEventBase::getInstance().getReadBuffer());
+    if (_buffSize < sizeof(Msg::PackageHead)) {
         return false;
     }
     char _buf[10] = {};
@@ -24,13 +25,13 @@ bool CEtReadBuffer::read(evutil_socket_t fd, const char *data, size_t len) {
 
     auto _size = ((Msg::PackageHead *) _buf)->size;
 
-    if (_size > evbuffer_get_length(CEtEventBase::getInstance().getReadBuffer())) {
+    if (_size > _buffSize) {
         return false;
     }
 
     char _readBuff[MSG_MAX_LINE] = {};
     auto _lenSize = _size - sizeof(Msg::PackageHead);
-    evbuffer_remove(CEtEventBase::getInstance().getReadBuffer(), &_buf, sizeof(Msg::PackageHead));
+    evbuffer_drain(CEtEventBase::getInstance().getReadBuffer(), sizeof(Msg::PackageHead));
     evbuffer_remove(CEtEventBase::getInstance().getReadBuffer(), &_readBuff, _lenSize);
 
     if (callBack) {

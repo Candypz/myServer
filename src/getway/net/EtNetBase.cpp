@@ -38,9 +38,6 @@ void read_cb(struct bufferevent *bev, void *arg) {
        CEtReadBuffer::getInstance().read(_fd, _line, _n);
 
        LOG_INFO("fd = {0},read line size: {1}", _fd, _n);
-
-       //CEtClientMag::decode(_fd, _line, _n);
-       //bufferevent_write(bev, _line, _n);
     }
 }
 
