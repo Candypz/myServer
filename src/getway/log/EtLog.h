@@ -4,7 +4,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 
-#define CONSOLENAME "console"
+#define CONSOLENAME "Getway"
 #define LOGNAME "getway"
 #define LOGPATH "log/getway"
 
@@ -44,7 +44,7 @@
     #define LOG_ERR(fmt, ...)\
             spdlog::get(LOGNAME)->error(fmt, ##__VA_ARGS__);
     #define LOG_CRIT(fmt, ...)\
-            spdlog::get(LOGNAME)->critical(fmt, ##__VA_ARGS__);       
+            spdlog::get(LOGNAME)->critical(fmt, ##__VA_ARGS__);
 #endif
 
 class CETLog {

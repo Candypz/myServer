@@ -7,11 +7,13 @@ public:
     static struct event_base* m_base;
     void init();
     bool run();
-    struct evbuffer* getEvBuffer();
+    struct evbuffer* getReadBuffer();
+    struct evbuffer* getWriteBuffer();
     virtual ~CEtEventBase();
 private:
     CEtEventBase();
-    struct evbuffer* m_buff;
+    struct evbuffer* m_readBuff;
+    struct evbuffer* m_writeBuff;
 };
 
 #endif

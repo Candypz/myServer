@@ -21,7 +21,8 @@ CEtEventBase &CEtEventBase::getInstance() {
 
 void CEtEventBase::init() {
     m_base = event_base_new();
-    m_buff = evbuffer_new();
+    m_readBuff = evbuffer_new();
+    m_writeBuff = evbuffer_new();
 }
 
 bool CEtEventBase::run() {
@@ -29,6 +30,10 @@ bool CEtEventBase::run() {
     return true;
 }
 
-struct evbuffer* CEtEventBase::getEvBuffer() {
-    return m_buff;
+struct evbuffer* CEtEventBase::getReadBuffer() {
+    return m_readBuff;
+}
+
+struct evbuffer* CEtEventBase::getWriteBuffer() {
+    return m_writeBuff;
 }

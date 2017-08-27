@@ -4,7 +4,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 
-#define CONSOLENAME "console"
+#define CONSOLENAME "Db"
 #define LOGNAME "db"
 #define LOGPATH "log/dbServer"
 

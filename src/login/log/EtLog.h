@@ -4,7 +4,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 
-#define CONSOLENAME "console"
+#define CONSOLENAME "Login"
 #define LOGNAME "login"
 #define LOGPATH "log/login"
 

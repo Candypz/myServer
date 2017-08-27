@@ -13,6 +13,7 @@ void CETLog::createLogFile() {
 #ifdef _DEBUG
     auto _console = spdlog::stdout_color_mt(CONSOLENAME);
     _log->flush_on(spdlog::level::debug);
+    _console->flush_on(spdlog::level::debug);
 #else
     _log->flush_on(spdlog::level::err);
     _log->set_level(spdlog::level::info);
