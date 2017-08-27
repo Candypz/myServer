@@ -1,4 +1,4 @@
-#include "EtBuffer.h"
+#include "EtWriteBuffer.h"
 #include "MessageCmd.h"
 #include "EtTime.h"
 #include "EtEventBase.h"
@@ -7,17 +7,17 @@
 #include <event2/event.h>
 #include <event2/bufferevent.h>
 
-CEtBuffer::CEtBuffer(int serverId, int serverType) {
+CEtWriteBuffer::CEtWriteBuffer(int serverId, int serverType) {
     m_serverId = serverId;
     m_serverType = serverType;
     m_head = new MsgHeader();
 }
 
-CEtBuffer::~CEtBuffer() {
+CEtWriteBuffer::~CEtWriteBuffer() {
 
 }
 
-void CEtBuffer::create(int cmd, const char *data) {
+void CEtWriteBuffer::create(int cmd, const char *data) {
     m_head->set_server_id(m_serverId);
     m_head->set_server_type(m_serverType);
     m_head->set_time_stamp(CEtTime::now());
@@ -33,15 +33,15 @@ void CEtBuffer::create(int cmd, const char *data) {
 
     evbuffer_add(CEtEventBase::getInstance().getWriteBuffer(), &_pack, sizeof(_pack));
     evbuffer_add(CEtEventBase::getInstance().getWriteBuffer(), _buff.c_str(), _buff.size());
-    
+
     m_size = evbuffer_get_length(CEtEventBase::getInstance().getWriteBuffer());
 }
 
-size_t CEtBuffer::getSize() {
+size_t CEtWriteBuffer::getSize() {
     return m_size;
 }
 
-const char *CEtBuffer::getData() {
+const char *CEtWriteBuffer::getData() {
     evbuffer_remove(CEtEventBase::getInstance().getWriteBuffer(), m_etBuf, evbuffer_get_length(CEtEventBase::getInstance().getWriteBuffer()));
     return m_etBuf;
 }

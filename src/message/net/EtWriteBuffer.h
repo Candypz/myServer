@@ -2,11 +2,12 @@
 #define _ETBUFFER_H_
 
 #include "MessageBase.pb.h"
+#include "MessageCmd.h"
 
-class CEtBuffer :public std::enable_shared_from_this<CEtBuffer> {
+class CEtWriteBuffer :public std::enable_shared_from_this<CEtWriteBuffer> {
 public:
-    CEtBuffer(int serverId, int serverType);
-    virtual ~CEtBuffer();
+    CEtWriteBuffer(int serverId, int serverType);
+    virtual ~CEtWriteBuffer();
     void create(int cmd, const char *data);
     size_t getSize();
     const char *getData();
@@ -15,7 +16,7 @@ private:
     int m_serverType;
     MsgHeader *m_head;
     Message m_msg;
-    char m_etBuf[125] = {};
+    char m_etBuf[MSG_MAX_LINE] = {};
     size_t m_size = 0;
 };
 

@@ -1,5 +1,5 @@
 #include "MessageTool.h"
-#include "EtBuffer.h"
+#include "EtWriteBuffer.h"
 
 CMessageTool::CMessageTool(int serverId, int serverType) {
     m_serverId = serverId;
@@ -11,7 +11,7 @@ CMessageTool::~CMessageTool() {
 }
 
 const char *CMessageTool::createMessage(int cmd, const char *data, size_t *len) {
-    std::shared_ptr<CEtBuffer> _etBuff(new CEtBuffer(m_serverId, m_serverType));
+    std::shared_ptr<CEtWriteBuffer> _etBuff(new CEtWriteBuffer(m_serverId, m_serverType));
     _etBuff->create(cmd, data);
     *len = _etBuff->getSize();
     return _etBuff->getData();
