@@ -23,8 +23,13 @@ bool CEtReadBuffer::read(evutil_socket_t fd, const char *data, size_t len) {
     char _buf[10] = {};
     evbuffer_copyout(CEtEventBase::getInstance().getReadBuffer(), &_buf, sizeof(Msg::PackageHead));
 
-    auto _size = ((Msg::PackageHead *) _buf)->size;
+    auto _tempHead = ((Msg::PackageHead *) _buf);
+    if (_tempHead->serverPid != MSG_SERVER_PID) {
+        evbuffer_drain(CEtEventBase::getInstance().getReadBuffer(), _buffSize);
+        return false;
+    }
 
+    auto _size = _tempHead->size;
     if (_size > _buffSize) {
         return false;
     }

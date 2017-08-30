@@ -29,6 +29,7 @@ void CEtWriteBuffer::create(int cmd, const char *data) {
     m_msg.SerializePartialToString(&_buff);
 
     Msg::PackageHead _pack;
+    _pack.serverPid = MSG_SERVER_PID;
     _pack.size = _buff.size() + sizeof(_pack);
 
     evbuffer_add(CEtEventBase::getInstance().getWriteBuffer(), &_pack, sizeof(_pack));
