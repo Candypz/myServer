@@ -1,6 +1,8 @@
 #ifndef _ETTIME_H_
 #define _ETTIME_H_
 
+#include <functional>
+
 class CEtTime {
 public:
     virtual ~CEtTime();

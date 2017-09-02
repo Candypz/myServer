@@ -1,5 +1,8 @@
 #include "EtTime.h"
+#include "EtEventBase.h"
 #include <chrono>
+#include <event.h>
+#include <event2/event.h>
 
 CEtTime::CEtTime() {
 
