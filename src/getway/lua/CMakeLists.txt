@@ -1,6 +1,8 @@
 INCLUDE_DIRECTORIES(
+    ${CMAKE_SOURCE_DIR}/src/3rd/
     ${CMAKE_SOURCE_DIR}/src/3rd/lua
     ${CMAKE_SOURCE_DIR}/src/getway/log
+    ${CMAKE_SOURCE_DIR}/src/common
 )
 
 

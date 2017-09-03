@@ -15,4 +15,4 @@ ADD_SUBDIRECTORY(lua)
 ADD_SUBDIRECTORY(net)
 
 ADD_EXECUTABLE(getway main.cpp)
-TARGET_LINK_LIBRARIES(getway EtGetWayLog EtGetWayNet EtMesg EtCommon EtNetBase EtGetWayLua Et3RD)
+TARGET_LINK_LIBRARIES(getway EtGetWayLog EtGetWayNet EtMesg EtGetWayLua EtCommon EtNetBase Et3RD)
