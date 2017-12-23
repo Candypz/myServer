@@ -1,0 +1,6 @@
+INCLUDE_DIRECTORIES(
+    ${CMAKE_SOURCE_DIR}/src/dbServer/log
+    ${CMAKE_SOURCE_DIR}/src/common
+)
+FILE(GLOB SOURCE_MYSQL *.h *.cpp *.cc)
+ADD_LIBRARY(EtMysql STATIC ${SOURCE_MYSQL})
