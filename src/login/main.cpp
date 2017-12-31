@@ -18,6 +18,10 @@ int main() {
         LOG_CRIT("call back {0},{1}", len, data);
     };
 
+    CEtReadBuffer::getInstance().callBack = [](const auto data, auto len) {
+        LOG_CRIT("call back {0},{1}", len, data);
+    };
+
     std::shared_ptr<CEtClientNetBase> _client(new CEtClientNetBase());
     if (_client->init()) {
         _client->run();

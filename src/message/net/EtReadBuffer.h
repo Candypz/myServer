@@ -4,7 +4,7 @@
 #include <functional>
 #include <event2/event.h>
 
-#include "MessageCmd.h"
+#include "../MessageCmd.h"
 
 class CEtReadBuffer {
 public:
