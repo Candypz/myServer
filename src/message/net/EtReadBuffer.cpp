@@ -40,7 +40,7 @@ bool CEtReadBuffer::read(evutil_socket_t fd, const char *data, size_t len) {
     evbuffer_remove(CEtEventBase::getInstance().getReadBuffer(), &_readBuff, _lenSize);
 
     if (callBack) {
-        callBack(_readBuff, _lenSize);
+        callBack(_readBuff, _lenSize, fd);
     }
 
     return true;

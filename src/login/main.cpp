@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "EtEventBase.h"
 #include "EtReadBuffer.h"
+#include "EtMessageClinetMsg.h"
 
 void startClientNet() {
 
@@ -14,12 +15,9 @@ int main() {
     _log->createLogFile();
 
     CEtEventBase::getInstance().init();
-    CEtReadBuffer::getInstance().callBack = [](const auto data, auto len) {
-        LOG_CRIT("call back {0},{1}", len, data);
-    };
 
-    CEtReadBuffer::getInstance().callBack = [](const auto data, auto len) {
-        LOG_CRIT("call back {0},{1}", len, data);
+    CEtReadBuffer::getInstance().callBack = [](const auto data, auto len, auto fd) {
+        CEtMessageClinetMsg::getInstance().pickupMessage(fd, data, len);
     };
 
     std::shared_ptr<CEtClientNetBase> _client(new CEtClientNetBase());

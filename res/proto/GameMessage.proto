@@ -2,15 +2,21 @@ syntax = "proto3";
 
 //Req 发
 //Res 收
+message CMessage {
+    bytes content = 1;
+    int32 cmd = 2;
+    int32 sn = 3;
+}
+
 
 //1000
-message Registration_Req {
+message CRegistration_Req {
     int32 account = 1;
     bytes password = 2;
 }
 
 //1001
-message Registration_Res {
+message CRegistration_Res {
     int32 error_code  = 1;
     int64 server_tiem = 2;
 }

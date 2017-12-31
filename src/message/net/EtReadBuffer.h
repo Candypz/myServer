@@ -12,7 +12,7 @@ public:
     CEtReadBuffer(const CEtReadBuffer&) = default;
     static CEtReadBuffer &getInstance();
     bool read(evutil_socket_t fd, const char *data, size_t len);
-    std::function<void (const char *data, size_t len)> callBack = nullptr;
+    std::function<void (const char *data, size_t len, evutil_socket_t fd)> callBack = nullptr;
     virtual ~CEtReadBuffer();
 };
 
